@@ -9,6 +9,19 @@ public abstract class Animais {
     String proprietario;
 
     // Métodos:
+    // 1. Construtor
+     public Animais(String especie, String nome, double peso, String porte, String proprietario) {
+        this.especie = especie;
+        this.nome = nome;
+        this.peso = peso;
+        this.porte = porte;
+        this.proprietario = proprietario;
+    }
+
+    // 2. Construtor vazio --  ctor
+    public Animais() {
+        super();
+    }
 
     // 3. gets and sets
     public String getEspecie() {

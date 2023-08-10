@@ -2,129 +2,124 @@ package RevisaoFPOO;
 
 import javax.swing.JOptionPane;
 
+import RevisaoFPOO.Agenda.AgendaConsulta;
 import RevisaoFPOO.Cadastro.Animais;
 import RevisaoFPOO.Cadastro.Cachorro;
 import RevisaoFPOO.Cadastro.Gato;
 import RevisaoFPOO.Cadastro.OutrosAnimais;
-import RevisaoFPOO.Horario.AgendaConsulta;
 
 public class App {
     public static void main(String[] args) {
-        // criar o vetir de classes
-        Gato gatos[] = new Gato[10];
         Cachorro cachorros[] = new Cachorro[10];
+        Gato gatos[] = new Gato[10];
         OutrosAnimais outros[] = new OutrosAnimais[10];
-        AgendaConsulta agenda[] = new AgendaConsulta[100];
-
-        // Cadastro dos animais
-        // criar os contadores
+        AgendaConsulta agenda[] = new AgendaConsulta[10];
+        boolean ligado = true;
         int contCachorros = 0;
         int contGatos = 0;
         int contOutros = 0;
-        JOptionPane.showMessageDialog(null, "Seja bem-vindo ao nosso petshop!");
-        boolean lojaAberta = true;
-        while (lojaAberta) {
-            int escolha = Integer
-                    .parseInt(JOptionPane.showInputDialog("O que deseja fazer?\n 1 - Cadastro\n  2- Agendamento\n 3 - Sair"));
+        int contAgenda = 0;
+        JOptionPane.showMessageDialog(null, "Seja bem-vindo ao consultório!");
+        while (ligado) {
+            int escolha = Integer.parseInt(JOptionPane
+                    .showInputDialog("1 - Cadastro \n 2 - Agendamento \n 3- Sair"));
+
             switch (escolha) {
                 case 1: {
-                    int acao = Integer.parseInt(JOptionPane.showInputDialog(
-                            "1 - Cadastro Gato\n 2 - Cadastro Cachorro \n 3 - Outro animal \n 4 - Sair"));
-                    switch (acao) {
+                    int acao1 = Integer.parseInt(JOptionPane
+                            .showInputDialog("1 - Gato \n 2 - Cachorro \n 3- Outros \n 4 - Sair"));
+
+                    switch (acao1) {
                         case 1: {
-                           JOptionPane.showInputDialog("Informe o nome de seu gato:");
-                            JOptionPane.showInputDialog("Informe o peso de seu gato: ");
-                            JOptionPane.showInputDialog("Informe o nome do proprietário: ");
-                            JOptionPane.showInputDialog("Informe o seu porte: ");
-                            JOptionPane.showInputDialog("Informe a sua raça: ");
-                            lojaAberta = false;
+                            gatos[contGatos] = new Gato();
+                            // preencher os atributos
+                            gatos[contGatos].setNome(JOptionPane.showInputDialog("Informe o nome do gato: "));
+                            gatos[contGatos].setPeso(
+                                    Double.parseDouble(JOptionPane.showInputDialog("Informe o peso do gato:")));
+                            contGatos++;
                             break;
                         }
+
                         case 2: {
-                            JOptionPane.showInputDialog("Informe o nome de seu cachorro:");
-                            JOptionPane.showInputDialog("Informe o peso de seu cachorro: ");
-                            JOptionPane.showInputDialog("Informe o nome do proprietário: ");
-                            JOptionPane.showInputDialog("Informe o seu porte: ");
-                            JOptionPane.showInputDialog("Informe a sua raça: ");
-                            lojaAberta = false;
+                            cachorros[contCachorros] = new Cachorro();
+                            // preencher os atributos
+                            cachorros[contCachorros]
+                                    .setNome(JOptionPane.showInputDialog("Informe o nome do cachorro: "));
+                            cachorros[contCachorros].setPeso(
+                                    Double.parseDouble(JOptionPane.showInputDialog("Informe o peso do cachorro:")));
+                            contCachorros++;
                             break;
                         }
+
                         case 3: {
-                            JOptionPane.showInputDialog("Informe o nome de seu animal:");
-                            JOptionPane.showInputDialog("Informe o peso de seu animal: ");
-                            JOptionPane.showInputDialog("Informe o nome do proprietário: ");
-                            JOptionPane.showInputDialog("Informe o seu porte: ");
-                            JOptionPane.showInputDialog("Informe a sua raça: ");
-                            lojaAberta = false;
+                            outros[contOutros] = new OutrosAnimais();
+                            outros[contOutros].setNome(JOptionPane.showInputDialog("Informe o nome do cachorro: "));
+                            outros[contOutros].setPeso(
+                                    Double.parseDouble(JOptionPane.showInputDialog("Informe o peso do cachorro:")));
+                            contOutros++;
                             break;
                         }
-                        case 4: {
-                            JOptionPane.showMessageDialog(null, "Você saiu!");
-                            lojaAberta = false;
-                        }
-                        default: 
-                        JOptionPane.showMessageDialog(null, "Solicite um desses valores!");
+                        default:
+                            break;
+
                     }
                 }
 
                 case 2: {
-                    int agendar = Integer.parseInt(JOptionPane.showInputDialog(
-                            "Nossos horários são predefinidos durante as semanas passam e não mudamos. Escolha um destes horários. Eles são válidos apenas para esta semana e funcionam de segunda até sexta\n 1 - 7:00\n 2 - 9:00\n 3 - 11:00\n 4 - 14:00\n 5 - 16:00\n 6 - 18:00"));
-                    switch (agendar) {
-                        case 1: {
-                            JOptionPane.showInputDialog("Agora que selecionou o horário informe o seu nome:");
-                            JOptionPane.showInputDialog("O nome de seu animal:");
-                            JOptionPane.showMessageDialog(null, "Agendamento marcado para às 7 da manhã!");
-                            lojaAberta = false;
+                    String nomeAgenda = JOptionPane.showInputDialog("Informe o nome do pet: ");
+                    boolean nomeOk = false;
+
+                    for (int i = 0; i < contGatos; i++) {
+                        if (nomeAgenda.equals(gatos[i].getNome())) {
+                            JOptionPane.showMessageDialog(null, "Nome encontrado!");
+                            nomeOk = true;
                             break;
                         }
-                        case 2: {
-                            JOptionPane.showInputDialog("Agora que selecionou o horário informe o seu nome:");
-                            JOptionPane.showInputDialog("O nome de seu animal:");
-                            JOptionPane.showMessageDialog(null, "Agendamento marcado para às 9 da manhã!");
-                            lojaAberta = false;
+                    }
+                    for (int i = 0; i < contCachorros; i++) {
+                        if (nomeAgenda.equals(cachorros[i].getNome())) {
+                            JOptionPane.showMessageDialog(null, "Nome encontrado!");
+                            nomeOk = true;
                             break;
                         }
-                        case 3: {
-                            JOptionPane.showInputDialog("Agora que selecionou o horário informe o seu nome:");
-                            JOptionPane.showInputDialog("O nome de seu animal:");
-                            JOptionPane.showMessageDialog(null, "Agendamento marcado para às 11 da manhã!");
-                            lojaAberta = false;
+                    }
+                    for (int i = 0; i < contOutros; i++) {
+                        if (nomeAgenda.equals(outros[i].getNome())) {
+                            JOptionPane.showMessageDialog(null, "Nome encontrado!");
+                            nomeOk = true;
                             break;
                         }
-                        case 4: {
-                             JOptionPane.showInputDialog("Agora que selecionou o horário informe o seu nome:");
-                            JOptionPane.showInputDialog("O nome de seu animal:");
-                           JOptionPane.showMessageDialog(null, "Agendamento marcado para às 14 da tarde!");
-                            lojaAberta = false;
-                            break;
+                    }
+
+                    if (nomeOk) {
+                        boolean registrarAgendamento = true;
+                        while (registrarAgendamento) {
+                            String dataAgenda = JOptionPane.showInputDialog("Informe a data do agendamento: ");
+                            String horaAgenda = JOptionPane.showInputDialog("Informe a hora do agendamento: ");
+
+                            if (contAgenda != 0) {
+                                for (int i = 0; i < contAgenda; i++) {
+                                    if (agenda[i].getAgendamento().equals(dataAgenda)) {
+                                        // já existe um horário agendado
+                                        JOptionPane.showMessageDialog(null, "Horário já agendado!");
+                                        break;
+                                    } else {
+                                        // realizar o agendamento
+                                        agenda[contAgenda] = new AgendaConsulta(horaAgenda, dataAgenda);
+                                        contAgenda++;
+                                        registrarAgendamento = false;
+                                    }
+                                }
+                            } else {
+                                agenda[contAgenda] = new AgendaConsulta(horaAgenda, dataAgenda);
+                                contAgenda++;
+                                registrarAgendamento = false;  
+                            }
                         }
-                        case 5: {
-                             JOptionPane.showInputDialog("Agora que selecionou o horário informe o seu nome:");
-                            JOptionPane.showInputDialog("O nome de seu animal:");
-                            JOptionPane.showMessageDialog(null, "Agendamento marcado para às 16 da tarde!");
-                            lojaAberta = false;
-                            break;
-                        }
-                        case 6: {
-                             JOptionPane.showInputDialog("Agora que selecionou o horário informe o seu nome:");
-                            JOptionPane.showInputDialog("O nome de seu animal:");
-                            JOptionPane.showMessageDialog(null, "Agendamento marcado para às 18 da tarde!");
-                            lojaAberta = false;
-                            break;
-                        }
-                        default: 
-                        JOptionPane.showInputDialog("Solicite um desses valores!");
                     }
                 }
-                case 3: {
-                    JOptionPane.showInternalMessageDialog(null, "Até mais!");
-                    lojaAberta = false;
-                    break;
-                }
-                default: 
-                JOptionPane.showMessageDialog(null, "Selecione um desses valores!");
+
             }
         }
     }
-}
+};
