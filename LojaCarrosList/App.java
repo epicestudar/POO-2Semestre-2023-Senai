@@ -28,6 +28,17 @@ public class App {
             }
             JOptionPane.showMessageDialog(null, listar);
             listar = "";
+
+            case 3:
+            int indexCarros = Integer.parseInt(JOptionPane.showInputDialog("Informe o índice do carro que deseja consultar"));
+            JOptionPane.showMessageDialog(null, listaCarros.get(indexCarros).getAno() + "\n" + listaCarros.get(indexCarros).getMarca() + "\n" + listaCarros.get(indexCarros).getModelo() + "\n" + listaCarros.get(indexCarros).getCor() + "\n");
+
+            case 4:
+            int indexCarros2 = Integer.parseInt(JOptionPane.showInputDialog("Informe o índice do carro que deseja apagar"));
+            listaCarros.remove(indexCarros2);
+
+            case 5:
+            verdadeiro = false;
         }
         }
     }
