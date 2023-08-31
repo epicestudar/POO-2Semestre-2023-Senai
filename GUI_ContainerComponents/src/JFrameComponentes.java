@@ -11,7 +11,7 @@ public class JFrameComponentes extends JFrame {
         this.setLayout(flow);
 
         // adicionar os componentes
-        for (int i = 0; i < 6; i++) {
+        for (int i = 1; i < 6; i++) {
             this.add(new JButton("" + i));
         }
 
