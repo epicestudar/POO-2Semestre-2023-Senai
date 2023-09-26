@@ -1,0 +1,2 @@
+Exercício 1: Usando CardLayout
+Crie uma aplicação Java com um CardLayout que tenha três painéis diferentes. Cada painel deve conter um botão que, ao ser clicado, troca para o próximo painel. Certifique-se de que todos os painéis estejam visíveis inicialmente.
