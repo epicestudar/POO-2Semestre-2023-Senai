@@ -1,0 +1,1 @@
+Desenvolva um jogo simples usando o CardLayout. Crie diferentes painéis para representar as diferentes telas do jogo, como tela de título, tela de jogo e tela de pontuação. Use o CardLayout para alternar entre essas telas à medida que o jogador progride no jogo.
