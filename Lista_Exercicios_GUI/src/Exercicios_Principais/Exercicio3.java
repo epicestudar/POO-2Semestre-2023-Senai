@@ -1,60 +1,58 @@
 package Exercicios_Principais;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class Exercicio3 extends JFrame{
+public class Exercicio3 extends JFrame {
     public Exercicio3() {
-        super("Exercício 3");
+        JFrame frame = new JFrame("Navegação App");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 200);
 
-        //criando um painel principal
-        JPanel painelPrincipal = new JPanel();
-        JPanel painelLogin = new JPanel();
-        JPanel painelCadastro = new JPanel();
-
-        //card layout
+        // Criar um painel de conteúdo e definir o layout para CardLayout
+        JPanel contentPane = new JPanel();
         CardLayout cardLayout = new CardLayout();
-        painelPrincipal.setLayout(cardLayout);
-        painelLogin.setLayout(cardLayout);
-        painelCadastro.setLayout(cardLayout);
+        contentPane.setLayout(cardLayout);
 
-        // criando os botões
-        JButton buttonLogin = new JButton("Login");
-        JButton buttonCadastro = new JButton("Cadastro");
-        JButton buttonInicio = new JButton("Início");
+        // Tela Inicial
+        JPanel telaInicial = new JPanel();
+        JButton loginButton = new JButton("Login");
+        JButton registerButton = new JButton("Cadastro");
+        JButton inicialButton = new JButton("Início");
+        telaInicial.add(loginButton);
+        telaInicial.add(registerButton);
 
-        //agora vamos criar cards para adicionar ao painel principal
-        JPanel card1 = new JPanel();
-        card1.add(new JLabel("Login"));
-        card1.add(buttonLogin);
+        // Tela de Login
+        JPanel telaLogin = new JPanel();
+        JButton backToHomeButtonLogin = new JButton("Voltar");
+        telaLogin.add(backToHomeButtonLogin);
 
-        JPanel card2 = new JPanel();
-        card2.add(new JLabel("Cadastro"));
-        card2.add(buttonCadastro);
+        // Tela de Registro
+        JPanel telaRegistro = new JPanel();
+        JButton backToHomeButtonRegister = new JButton("Voltar");
+        telaRegistro.add(backToHomeButtonRegister);
 
-        JPanel card3 = new JPanel();
-        card3.add(new JLabel("Início"));
-        card3.add(buttonInicio);
+        // Tela Principal
+        JPanel telaPrincipal = new JPanel();
+        JLabel welcomeLabel = new JLabel("Bem-vindo à Tela Principal!");
+        telaPrincipal.add(welcomeLabel);
 
-        // adicionar os cards criados ao painel principal
-        painelLogin.add(card1);
-        painelCadastro.add(card2);
-        painelPrincipal.add(card3);
+        // Adicionar as telas ao painel de conteúdo
+        contentPane.add(telaInicial, "Tela Inicial");
+        contentPane.add(telaLogin, "Tela de Login");
+        contentPane.add(telaRegistro, "Tela de Registro");
+        contentPane.add(telaPrincipal, "Tela Principal");
 
-        //set do frame
-        this.add(painelPrincipal);
-        this.setDefaultCloseOperation(2);
-        this.setBounds(100, 100, 300, 300);
-        this.setVisible(true);
+        // Adicionar o painel de conteúdo ao frame
+        frame.setContentPane(contentPane);
 
-        // adicionando ações para o botão
-        buttonLogin.addActionListener(e->{
-            cardLayout.next(painelLogin);
-        });
-        buttonCadastro.addActionListener(e->{
-            cardLayout.next(painelCadastro);
-        });
-        buttonInicio.addActionListener(e->{
-            cardLayout.next(painelPrincipal);
-        });
+        // Adicionar ouvintes para os botões
+        loginButton.addActionListener(e -> cardLayout.show(contentPane, "Tela de Login"));
+        registerButton.addActionListener(e -> cardLayout.show(contentPane, "Tela de Registro"));
+        backToHomeButtonLogin.addActionListener(e -> cardLayout.show(contentPane, "Tela Inicial"));
+        backToHomeButtonRegister.addActionListener(e -> cardLayout.show(contentPane, "Tela Inicial"));
+
+        // Exibir o frame
+        frame.setVisible(true);
     }
 }
