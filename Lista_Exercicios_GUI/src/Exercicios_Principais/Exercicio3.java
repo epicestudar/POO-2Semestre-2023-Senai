@@ -5,54 +5,70 @@ import java.awt.*;
 
 public class Exercicio3 extends JFrame {
     public Exercicio3() {
-        JFrame frame = new JFrame("Navegação App");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 200);
+         //criar um painel principal -> cardLayout
+         JPanel cardPanel = new JPanel();
+         CardLayout cardLayout = new CardLayout();
+         cardPanel.setLayout(cardLayout);
+         this.add(cardPanel);
 
-        // Criar um painel de conteúdo e definir o layout para CardLayout
-        JPanel contentPane = new JPanel();
-        CardLayout cardLayout = new CardLayout();
-        contentPane.setLayout(cardLayout);
+         // criar os cards
+         JPanel card1 = new JPanel(); 
+         card1.add(new JLabel("Home"));
+         JButton homeButtonLogin = new JButton("Login");
+         JButton homeButtonCadastro = new JButton("Cadastro");
+         card1.add(homeButtonLogin);
+         card1.add(homeButtonCadastro);
+         cardPanel.add(card1, "Home");
 
-        // Tela Inicial
-        JPanel telaInicial = new JPanel();
-        JButton loginButton = new JButton("Login");
-        JButton registerButton = new JButton("Cadastro");
-        JButton inicialButton = new JButton("Início");
-        telaInicial.add(loginButton);
-        telaInicial.add(registerButton);
+          JPanel card2 = new JPanel(); 
+         card2.add(new JLabel("Login"));
+         JButton loginButtonCadastro = new JButton("Cadastro");
+         JButton loginButtonHome = new JButton("Home");
+         JLabel textoEMail = new JLabel("Digite seu email: ");
+         JTextField campoEmail = new JTextField(10);
+         JLabel textoSenha = new JLabel("Digite sua senha: ");
+         JTextField campoSenha = new JTextField(10);
+         JButton botaoFazerLogin = new JButton("Enviar");
+         card2.add(loginButtonCadastro);
+         card2.add(loginButtonHome );
+         card2.add(textoEMail);
+         card2.add(campoEmail);
+         card2.add(textoSenha);
+         card2.add(campoSenha);
+         card2.add(botaoFazerLogin);
+         cardPanel.add(card2, "Login");
 
-        // Tela de Login
-        JPanel telaLogin = new JPanel();
-        JButton backToHomeButtonLogin = new JButton("Voltar");
-        telaLogin.add(backToHomeButtonLogin);
+           JPanel card3 = new JPanel(); 
+         card3.add(new JLabel("Cadastro"));
+         JButton cadastroButtonHome = new JButton("Home");
+         JButton cadastroButtonLogin = new JButton("Login");
+         card3.add(cadastroButtonHome);
+         card3.add(cadastroButtonLogin);
+         cardPanel.add(card3, "Cadastro");
 
-        // Tela de Registro
-        JPanel telaRegistro = new JPanel();
-        JButton backToHomeButtonRegister = new JButton("Voltar");
-        telaRegistro.add(backToHomeButtonRegister);
+         // set do frame
+         this.setDefaultCloseOperation(2);
+        this.setBounds(100, 100, 300, 300);
+        this.setVisible(true);
 
-        // Tela Principal
-        JPanel telaPrincipal = new JPanel();
-        JLabel welcomeLabel = new JLabel("Bem-vindo à Tela Principal!");
-        telaPrincipal.add(welcomeLabel);
-
-        // Adicionar as telas ao painel de conteúdo
-        contentPane.add(telaInicial, "Tela Inicial");
-        contentPane.add(telaLogin, "Tela de Login");
-        contentPane.add(telaRegistro, "Tela de Registro");
-        contentPane.add(telaPrincipal, "Tela Principal");
-
-        // Adicionar o painel de conteúdo ao frame
-        frame.setContentPane(contentPane);
-
-        // Adicionar ouvintes para os botões
-        loginButton.addActionListener(e -> cardLayout.show(contentPane, "Tela de Login"));
-        registerButton.addActionListener(e -> cardLayout.show(contentPane, "Tela de Registro"));
-        backToHomeButtonLogin.addActionListener(e -> cardLayout.show(contentPane, "Tela Inicial"));
-        backToHomeButtonRegister.addActionListener(e -> cardLayout.show(contentPane, "Tela Inicial"));
-
-        // Exibir o frame
-        frame.setVisible(true);
+        // tratamento de eventos para os botões
+        homeButtonLogin.addActionListener(e-> {
+            cardLayout.show(cardPanel, homeButtonLogin.getText());
+        });
+        homeButtonCadastro.addActionListener(e-> {
+            cardLayout.show(cardPanel, homeButtonCadastro.getText());
+        });
+       loginButtonCadastro.addActionListener(e-> {
+            cardLayout.show(cardPanel,loginButtonCadastro.getText());
+        });
+        loginButtonHome.addActionListener(e-> {
+            cardLayout.show(cardPanel, loginButtonHome.getText());
+        });
+        cadastroButtonHome.addActionListener(e-> {
+            cardLayout.show(cardPanel, cadastroButtonHome.getText());
+        });
+        cadastroButtonLogin.addActionListener(e-> {
+            cardLayout.show(cardPanel, cadastroButtonLogin.getText());
+        });
     }
 }
