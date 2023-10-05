@@ -5,11 +5,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Exemplo1
  */
-public class Eventos extends JFrame{
+public class Eventos extends JFrame {
+
+    // atributos para a 3° forma
+    private JTextField caixaNome;
+    private JTextField caixaSobrenome;
+    private JLabel texto;
 
     // construtor
     public Eventos() {
@@ -23,16 +30,16 @@ public class Eventos extends JFrame{
 
         // criar os componentes
         mainPanel.add(new JLabel("Nome: "));
-        JTextField caixaNome = new JTextField();
+        caixaNome = new JTextField();
         mainPanel.add(caixaNome);
 
         mainPanel.add(new JLabel("Sobrenome: "));
-        JTextField caixaSobrenome = new JTextField();
+        caixaSobrenome = new JTextField();
         mainPanel.add(caixaSobrenome);
 
         JButton botao = new JButton("Concatenar: ");
         mainPanel.add(botao);
-        JLabel texto = new JLabel();
+        texto = new JLabel();
         mainPanel.add(texto);
 
         // set frame
@@ -40,10 +47,32 @@ public class Eventos extends JFrame{
 
         // tratamento de eventos (3 formas)
         // 1° forma: callback
-        botao.addActionListener(e-> {
+        // botao.addActionListener(e-> {
+        // texto.setText(caixaNome.getText() + " " + caixaSobrenome.getText());
+        // caixaNome.setText("");
+        // caixaSobrenome.setText("");
+        // });
+
+        // 2° forma: new ActionnListener
+        // botao.addActionListener(new ActionListener() {
+        // public void actionPerformed(ActionEvent e) {
+        // texto.setText(caixaNome.getText() + " " + caixaSobrenome.getText());
+        // caixaNome.setText("");
+        // caixaSobrenome.setText("");
+        // }
+        // });
+
+        // 3° forma: handler (manipulador)
+        // vou criar uma classe para tratar o evento
+        Handler evento = new Handler();
+        botao.addActionListener(evento);
+    }
+
+    public class Handler implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
             texto.setText(caixaNome.getText() + " " + caixaSobrenome.getText());
             caixaNome.setText("");
             caixaSobrenome.setText("");
-        });
+        }
     }
 }
