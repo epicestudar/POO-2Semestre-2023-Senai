@@ -69,6 +69,7 @@ public class Eventos extends JFrame {
     }
 
     public class Handler implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             texto.setText(caixaNome.getText() + " " + caixaSobrenome.getText());
             caixaNome.setText("");
