@@ -2,6 +2,7 @@ package Connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import javax.management.RuntimeErrorException;
@@ -23,6 +24,26 @@ public class ConnectionFactory {
     public static void closeConnection(Connection connection) {
         try {
             if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+     public static void closeConnection(PreparedStatement stmt) {
+        try {
+            if (stmt != null && stmt != null) {
+                stmt.close();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+     public static void closeConnection(Connection connection, PreparedStatement stmt) {
+        try {
+            if (connection != null && stmt != null) {
+                stmt.close();
                 connection.close();
             }
         } catch (SQLException ex) {

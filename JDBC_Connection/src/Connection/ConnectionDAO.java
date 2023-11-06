@@ -7,16 +7,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ConnectionDAO {
+    // atributo
     private Connection connection;
 
+    // construtor
     public ConnectionDAO() {
         this.connection = ConnectionFactory.getConnection();
     }
 
     // métodos
     public void criaTabela() {
+
         String sql = "CREATE TABLE IF NOT EXISTS MINHA_TABELA (ID SERIAL PRIMARY KEY,NOME VARCHAR(255),EMAIL VARCHAR(255))";
-        try (Statement stmt = connection.createStatement()) {
+        try (Statement stmt = this.connection.createStatement()) {
             stmt.execute(sql);
             System.out.println("Tabela criada com sucesso.");
         } catch (SQLException e) {
@@ -44,6 +47,8 @@ public class ConnectionDAO {
             stmt.setString(1, nome);
             stmt.setString(2, email);
             stmt.executeUpdate();
+            System.out.println("Dados inseridos com sucesso");
+            ConnectionFactory.closeConnection(stmt);
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao inserir dados no banco de dados.", e);
         } finally {
@@ -60,8 +65,8 @@ public class ConnectionDAO {
                 int idBuscado = resultSet.getInt("ID");
                 String nomeBuscado = resultSet.getString("NOME");
                 String emailBuscado = resultSet.getString("EMAIL");
-                System.out.println(
-                        "o Resultado da busca é id " + idBuscado + " nome " + nomeBuscado + " email " + emailBuscado);
+                System.out.println("o Resultado da busca é id " + idBuscado + " nome " +
+                        nomeBuscado + " email " + emailBuscado);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar dados no banco de dados.", e);
