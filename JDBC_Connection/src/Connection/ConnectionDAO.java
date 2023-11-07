@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class ConnectionDAO {
     // atributo
@@ -71,6 +72,53 @@ public class ConnectionDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar dados no banco de dados.", e);
         } finally {
+            ConnectionFactory.closeConnection(this.connection);
+        }
+    }
+
+    // apagar um dado da tabela
+    public void apagarID(int id) {
+        String sql = "DELETE FROM MINHA_TABELA WHERE ID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+            System.out.println("Dado apagado com sucesso");
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar dados no banco de dados.", e);
+        } finally {
+            ConnectionFactory.closeConnection(this.connection);
+        }
+    }
+
+    // atualizar pelo ID
+    public void atualizarID(int id, String nome, String email) {
+        String sql = "UPDATE MINHA_TABELA SET nome = ?, email = ? WHERE ID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(3, id);
+            stmt.setString(1, nome);
+            stmt.setString(2, email);
+            stmt.executeUpdate();
+            System.out.println("Dado atualizados com sucesso");
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar dados no banco de dados.", e);
+        } finally {
+            ConnectionFactory.closeConnection(this.connection);
+        }
+    }
+
+    public void listarTodos() {
+        ResultSet rs = null;
+        String sql = "SELECT * FROM minha_tabela";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                System.out.println("id: " + rs.getInt("id") + "nome: " + rs.getString("nome") + "email" + rs.getString("email"));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        finally {
             ConnectionFactory.closeConnection(this.connection);
         }
     }
