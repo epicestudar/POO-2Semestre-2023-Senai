@@ -30,17 +30,16 @@ import Controller.TaskDAO;
 import Controller.TaskControl;
 import Model.Task;
 
-public class CarrosPainel extends JPanel {
+public class TaskPainel extends JPanel {
     private JButton cadastrar, apagar, editar;
-    private JTextField carMarcaField, carModeloField, carAnoField, carPlacaField,
-            carValorField;
+    private JTextField listarTarefa, listarSituacao;
     private List<Task> tarefas;
     private JTable table;
     private DefaultTableModel tableModel;
     private int linhaSelecionada = -1;
 
     // construtor(GUI - Jpanel)
-    public CarrosPainel() {
+    public TaskPainel() {
         super();
         // entrada de dados
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -48,11 +47,11 @@ public class CarrosPainel extends JPanel {
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(7, 2));
         inputPanel.add(new JLabel("Tarefa")).setFont(new Font("Arial", Font.PLAIN, 16));
-        carMarcaField = new JTextField(20);
-        inputPanel.add(carMarcaField);
+        listarTarefa = new JTextField(20);
+        inputPanel.add(listarTarefa);
         inputPanel.add(new JLabel("Situação")).setFont(new Font("Arial", Font.PLAIN, 16));
-        carModeloField = new JTextField(20);
-        inputPanel.add(carModeloField);
+        listarSituacao = new JTextField(20);
+        inputPanel.add(listarSituacao);
         add(inputPanel);
         JPanel botoes = new JPanel();
         botoes.add(cadastrar = new JButton("Cadastrar")).setBackground((Color.CYAN));
@@ -76,8 +75,8 @@ public class CarrosPainel extends JPanel {
             public void mouseClicked(MouseEvent evt) {
                 linhaSelecionada = table.rowAtPoint(evt.getPoint());
                 if (linhaSelecionada != -1) {
-                    carMarcaField.setText((String) table.getValueAt(linhaSelecionada, 0));
-                    carModeloField.setText((String) table.getValueAt(linhaSelecionada, 1));
+                    listarTarefa.setText((String) table.getValueAt(linhaSelecionada, 0));
+                    listarSituacao.setText((String) table.getValueAt(linhaSelecionada, 1));
                 }
             }
         });
@@ -95,24 +94,24 @@ public class CarrosPainel extends JPanel {
         cadastrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (carMarcaField.getText().isEmpty() || carModeloField.getText().isEmpty()) {
+                if (listarTarefa.getText().isEmpty() || listarSituacao.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de cadastrar o carro");
                 } else {
                     int confirmacao1 = JOptionPane.showConfirmDialog(null,
                             "Tem certeza de que deseja listar a tarefa?", "Confirmação", JOptionPane.YES_NO_OPTION);
                     if (confirmacao1 == JOptionPane.YES_NO_OPTION) {
-                        operacoes.cadastrar(carMarcaField.getText(), carModeloField.getText());
+                        operacoes.cadastrar(listarTarefa.getText(), listarSituacao.getText());
                         // Limpa os campos de entrada após a operação de cadastro
-                        carMarcaField.setText("");
-                        carModeloField.setText("");
+                        listarTarefa.setText("");
+                        listarSituacao.setText("");
                         // JOptionPane.showMessageDialog(null, "O carro do modelo " + carModeloField.getText()
                         //         + " da placa " + carPlacaField.getText() + " foi cadastrado com sucesso!");
                         JOptionPane.showMessageDialog(null, "A tarefa foi listada com sucesso!");
                     }
                     else if(confirmacao1 == JOptionPane.NO_OPTION) {
                         JOptionPane.showMessageDialog(null, "Listagem da tarefa cancelada!");
-                        carMarcaField.setText("");
-                        carModeloField.setText("");
+                        listarTarefa.setText("");
+                        listarSituacao.setText("");
                     }
                 }
 
@@ -124,13 +123,13 @@ public class CarrosPainel extends JPanel {
         editar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (carMarcaField.getText().isEmpty()) {
+                if (listarTarefa.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Selecione algo para editar");
                 } else {
-                    operacoes.atualizar(carMarcaField.getText(), carModeloField.getText());
+                    operacoes.atualizar(listarTarefa.getText(), listarSituacao.getText());
                     // Limpa os campos de entrada após a operação de atualização
-                    carMarcaField.setText("");
-                    carModeloField.setText("");
+                    listarTarefa.setText("");
+                    listarSituacao.setText("");
                     JOptionPane.showMessageDialog(null, "Tarefa editada com sucesso!");
                 }
             }
@@ -140,23 +139,23 @@ public class CarrosPainel extends JPanel {
         apagar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (carMarcaField.getText().isEmpty()) {
+                if (listarTarefa.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Selecione algo para apagar!");
                 } else {
                     int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja apagar a tarefa?",
                             "Confirmação", JOptionPane.YES_NO_OPTION);
                     if (confirmacao == JOptionPane.YES_NO_OPTION) {
-                        operacoes.apagar(carMarcaField.getText());
+                        operacoes.apagar(listarTarefa.getText());
                         // Limpa os campos de entrada após a operação de exclusão
-                        carMarcaField.setText("");
-                        carModeloField.setText("");
+                        listarTarefa.setText("");
+                        listarSituacao.setText("");
                         // JOptionPane.showMessageDialog(null, "O carro do modelo " + carModeloField.getText()
                         //         + " da placa " + carPlacaField.getText() + " foi apagado com sucesso!");
                         JOptionPane.showMessageDialog(null, "A tarefa foi apagada com sucesso!");
                     }
                     else if (confirmacao == JOptionPane.NO_OPTION) {
-                        carMarcaField.setText("");
-                        carModeloField.setText("");
+                        listarTarefa.setText("");
+                        listarSituacao.setText("");
                         // JOptionPane.showMessageDialog(null, "O carro do modelo " + carModeloField.getText()
                         //         + " da placa " + carPlacaField.getText() + " foi apagado com sucesso!");
                         JOptionPane.showMessageDialog(null, "Exclusão da tarefa cancelada!");
